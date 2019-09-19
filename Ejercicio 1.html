@@ -7,13 +7,13 @@
       
       var tamañoArray = prompt("Introduce el tamaño del array");
       var array = [];
-      var numMayor = -1;
+      var numMayor = 0;
 
       for(i = 0; i < tamañoArray; i++){
 
         array[i] = prompt("Introduce valores numericos al array");
 
-        if(numMayor < array[i]){
+        if(parseInt(numMayor) < array[i]){
 
           numMayor = array[i];
         }

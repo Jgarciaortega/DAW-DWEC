@@ -10,58 +10,87 @@
     var telefono;
     var ip;
     var url;
-    var letraDNI = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"];
+    var letrasDNI = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"];
+    var letraDNI;
     var resto;
     var dniValido = false;
     var urlValida = false;
     var emailValido = false;
     var tlfoValido = false;
     var ipValida = false;
-    
-    while(dniValido){
+
+    //COMPROBACION DNI
+    while (!dniValido) {
 
       //Introduccion de DNI y su validacion
-    dni = prompt("Introduce DNI");
+      dni = prompt("Introduce DNI");
 
+      //1ºCompruebo que el tamaño introducido es el apropiado para un DNI
+      if (dni.length == 9) {
 
+        //2ºEvaluo en la parte numérica del DNI no se han introducido letras
+        for (let i = 0; i < dni.length; i++) {
 
+          //Analizo los primeros 8 digitos para comprobar si son numeros
+          if (i < dni.length - 1) {
 
-    }
-    
+            if (isNaN(dni.substring(i, i + 1))) {
 
-    //1ºCompruebo que el tamaño introducido es el apropiado para un DNI
-    if (dni.length != 9) {
+              alert("DNI invalido.Ha introducido letras en la parte numérica del DNI");
 
-      alert("El número de dígitos introducido no es el apropiado para un DNI");
+            }
+        
+          }else{
 
-    } else {
+            if(!isNaN(dni.substring(i, i+1))){
 
-      //2ºEvaluo en la parte numérica del DNI no se han introducido letras
-      for (i = 0; i < dni.length-1; i++) {
+              alert("DNI invalido.El último dígito ha de ser una letra");
 
-        if (i != dni.length) {
+            }else{
 
-          if (isNaN(dni.substring(i, i + 1))) {
+              resto = dni.substring(0,8) % 23;
+              letraDNI = dni.substring(8,9);
+              
+              if(letrasDNI[resto] == letraDNI){
 
-            alert("DNI invalido.Ha introducido letras en la parte numérica del DNI");
+                alert("DNI correcto");
+                dniValido = true;
 
+              }else{
+
+                alert("La letra introducida no es válida");
+
+              }
+            }
           }
 
-
-
         }
+      }else{
 
+        alert("Error. No has introducido un DNI válido.")
+      }
+    }
 
+    //COMPROBACION URL
 
+    while(!urlValida){
 
+      url = prompt("Introduce una url válida");
+      var pattern = /^(http|https|ftp)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi;
 
+      if(url.match(pattern)){
+
+        alert("URL Correcto");
+        urlValida = true;
+
+      }else{
+
+        alert("URL Incorrecto");
       }
 
     }
 
-
-
-
+    
 
     /*
     telefono = prompt("Introduce telefono");
@@ -79,6 +108,9 @@
 
 </head>
 
-<body></body>
+<body>
+
+
+</body>
 
 </html>
