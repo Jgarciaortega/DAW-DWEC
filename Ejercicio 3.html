@@ -1,0 +1,80 @@
+<html>
+
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <style></style>
+  <script>
+
+    var dni;
+    var telefono;
+    var ip;
+    var url;
+    var letraDNI = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"];
+    var resto;
+    
+
+
+    while(!valido){
+
+
+
+
+
+    }
+    //Introduccion de DNI y su validacion
+    dni = prompt("Introduce DNI");
+
+    //1ºCompruebo que el tamaño introducido es el apropiado para un DNI
+    if (dni.length != 9) {
+
+      alert("El número de dígitos introducido no es el apropiado para un DNI");
+
+    } else {
+
+      //2ºEvaluo en la parte numérica del DNI no se han introducido letras
+      for (i = 0; i < dni.length-1; i++) {
+
+        if (i != dni.length) {
+
+          if (isNaN(dni.substring(i, i + 1))) {
+
+            alert("DNI invalido.Ha introducido letras en la parte numérica del DNI");
+
+          }
+
+
+
+        }
+
+
+
+
+
+      }
+
+    }
+
+
+
+
+
+    /*
+    telefono = prompt("Introduce telefono");
+
+    ip = prompt("Introduce una IP");
+
+    url = prompt("Introduce una url");
+
+
+     resto = dni % 23;*/
+
+
+
+  </script>
+
+</head>
+
+<body></body>
+
+</html>
