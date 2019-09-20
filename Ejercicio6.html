@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+
+       var entrada = "1985-07";
+
+        document.write(averiguaNombreMes(entrada));
+        
+        function averiguaNombreMes(entrada) {
+
+            var fecha = new Date(entrada);
+            var nombreMes;
+            
+            switch (fecha.getMonth()){
+
+                case(0): nombreMes = "Enero"; break;
+                case(1): nombreMes = "Febrero"; break;
+                case(2): nombreMes = "Marzo"; break;
+                case(3): nombreMes = "Abril"; break;
+                case(4): nombreMes = "Mayo"; break;
+                case(5): nombreMes = "Junio"; break;
+                case(6): nombreMes = "Julio"; break;
+                case(7): nombreMes = "Agosto"; break;
+                case(8): nombreMes = "Septiembre"; break;
+                case(9): nombreMes = "Octubre"; break;
+                case(10): nombreMes = "Noviembre"; break;
+                case(11): nombreMes = "Diciembre"; break;
+
+            }
+
+            return nombreMes;
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>

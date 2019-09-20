@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+
+       var entrada = "1985-07-12";
+
+        document.write(averiguaDiasMes(entrada));
+
+        function averiguaDiasMes(entrada) {
+
+            var fecha = new Date(entrada);
+            var dias;
+
+            if(fecha.getMonth()% 2 == 0){
+
+                dias = 31;
+             
+            }else{
+               
+                if(fecha.getMonth() == 1){
+
+                    dias = 28;
+
+                }else{
+
+                    dias = 30;
+                }
+            } 
+
+            return dias;
+
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>

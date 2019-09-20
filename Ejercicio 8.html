@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+
+        var cadena = "Cristiano Ronaldo Apesta";
+        var cantidadLetras = 5;
+        var direccion = "fin";
+
+        document.write(imprimir(cadena, cantidadLetras, direccion));
+
+        function imprimir(cadena, cantidadLetras, direccion) {
+
+            var nuevaCadena;
+
+            for (let i = cadena.lenght; i > (cadena.lenght - cantidadLetras); i--) {
+
+                nuevaCadena += cadena.charAt(i);
+
+            }
+
+            if (direccion == "fin") {
+
+
+
+
+            }
+
+            if (direccion == "principio") {
+
+
+
+            }
+
+            return nuevaCadena;
+
+        }
+
+
+    </script>
+
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>
