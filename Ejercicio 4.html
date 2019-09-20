@@ -7,23 +7,18 @@
   <title>Document</title>
   <script>
   
-    var date;
+    var dato;
 
-    date = prompt("Introduce una fecha");
+    dato = prompt("Introduce una fecha");
 
-    if(compruebaSiDate(date)){
+    compruebaSiDate(dato);
+    
+    
+  function compruebaSiDate (dato){
 
-      document.write("El dato introducido es de tipo date");
+    var fecha = new Date (dato);
 
-    }else{
-
-      document.write("El dato introducido no es de tipo date");
-    }
-
-  function compruebaSiDate (date){
-
-    return 
-
+    alert(fecha);
 
   }
   
