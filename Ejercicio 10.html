@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+    
+        var cadena = prompt("Introduce una cadena para convertirla a formato CamelCase");
+        var nuevaCadena;
+        var cambio = false;
+
+        for(let i = 0; i < cadena.length; i++){
+          
+            if(cadena.charAt(i) !== " "){
+                
+                if(cambio){
+
+                    nuevaCadena += cadena.charAt(i).toLocaleUpperCase();
+                    cambio = false;
+
+                }else{
+
+                    if(i == 0){
+
+                        nuevaCadena += cadena.charAt(i).toLocaleUpperCase();
+
+                    }else{
+
+                        nuevaCadena += cadena.charAt(i);
+                    }                    
+                }
+
+            }else{
+
+                cambio = true;
+
+            }
+
+        }
+
+        document.write(nuevaCadena);
+
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

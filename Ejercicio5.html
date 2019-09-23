@@ -8,6 +8,19 @@
     <title>Document</title>
     <script>
 
+
+        function obtenerDias(month,year){
+
+            return new Date (year,month, 0).getDate();
+
+        }
+
+        var mes = prompt("Introduce mes: ");
+        var anyo = prompt ("Introduce año: ");
+
+        document.write(obtenerDias(mes,anyo));
+
+        /*
        var entrada = "1985-07-12";
 
         document.write(averiguaDiasMes(entrada));
@@ -35,7 +48,7 @@
 
             return dias;
 
-        }
+        }*/
 
 
     </script>

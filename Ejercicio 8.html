@@ -12,29 +12,33 @@
         var cadena = "Cristiano Ronaldo Apesta";
         var cantidadLetras = 5;
         var direccion = "fin";
+        var nuevaCadena = "";
 
-        document.write(imprimir(cadena, cantidadLetras, direccion));
+        nuevaCadena = imprimir(cadena, cantidadLetras, direccion);
+
+        document.write(nuevaCadena);
 
         function imprimir(cadena, cantidadLetras, direccion) {
 
             var nuevaCadena;
 
-            for (let i = cadena.lenght; i > (cadena.lenght - cantidadLetras); i--) {
-
-                nuevaCadena += cadena.charAt(i);
-
-            }
-
             if (direccion == "fin") {
 
+                for (let i = cadena.lenght; i > (cadena.lenght - cantidadLetras); i--) {
 
+                    nuevaCadena += cadena.charAt(i);
 
+                }
 
             }
 
             if (direccion == "principio") {
 
+                for (let i = 0; i < cantidadLetras; i++) {
 
+                    nuevaCadena += cadena.charAt(i);
+
+                }
 
             }
 

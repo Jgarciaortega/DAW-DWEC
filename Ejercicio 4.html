@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
-  
-    var dato;
 
-    dato = prompt("Introduce una fecha");
+    var dato = new Date("12/12/2017");
 
-    compruebaSiDate(dato);
-    
-    
-  function compruebaSiDate (dato){
+    function compruebaSiDate(dato) {
 
-    var fecha = new Date (dato);
+      if (dato instanceof Date) return true;
+      else return false;
 
-    alert(fecha);
+    }
 
-  }
-  
+    if (compruebaSiDate(dato)) {
+
+      document.write("Es un objeto date");
+
+    } else {
+
+      document.write("No es un objeto date");
+    }
+
+
+
+
+
   </script>
 
 
 </head>
+
 <body>
-  
+
 </body>
+
 </html>
