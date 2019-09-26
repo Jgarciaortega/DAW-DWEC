@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @import "eventosEstilos.css";
+    </style>
+    <script>
+
+        function comprobarInput(input){
+
+            return input.value ="Error";
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+   
+
+    <form action="">
+            <h3>Formulario Total</h3>
+            <p>Nombre: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <p>Apellidos: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <p>e-mail: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <p>DNI: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <p>Password: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <p>Repetir Password: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <p>IP Equipo: <input type="text" size="100" onblur="comprobarInput(this)"></p>
+            <button value="Enviar" onclick="">ENVIAR</button>
+
+    </form>
+
+   
+
+</body>
+
+</html>
