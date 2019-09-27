@@ -13,5 +13,22 @@ h3{
 }
 
 form{
+
     text-align: right;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+p{
+
+    margin-right: 15%;
+}
+
+button{
+
+   margin-right: 50%;
+   margin-bottom: 2%;
+   
 }
