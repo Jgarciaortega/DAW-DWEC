@@ -11,7 +11,7 @@
     </style>
     <script>
 
-        var datos = [];
+        var datos = new Array();
 
         function comprobarNombre(nombre) {
 
@@ -71,6 +71,20 @@
             }
         }
 
+        function passwordCoincide(pass){
+
+            if(datos[3] == pass.value){
+
+                datos[4] = pass.value;
+
+            }else{
+
+                datos[4] =="Error";
+            }
+
+
+        }
+
         function comprobarDNI(dni) {
 
             var expresion_regular_dni;
@@ -98,17 +112,17 @@
 
                     }
 
-                    valor[4] = dniFormateado;
+                    datos[5] = dniFormateado;
 
                 } else {
 
-                    valor[4] = "Error";
+                    datos[5] = "Error";
                 }
 
 
             } else {
 
-                valor[4] = "Error";
+                datos[5] = "Error";
             }
 
         }
@@ -119,26 +133,24 @@
 
             if (!expresion_regular_IP.test(IP.value)) {
 
-                valor[5] = "Error";
+                datos[6] = "Error";
 
             }else{
 
-                valor[5] = IP.value;
+                datos[6] = IP.value;
             }
         }
+        
+        function rellenarFormulario(nombre,apellidos,email,DNI,DNI2,pass,IP){  
+    
+            nombre.value = datos[0];
+            apellidos.value = datos[1];
+            email.value =datos[2];
+            pass.value = datos[3];
+            DNI2.value = datos[4];
+            DNI.value = datos[5]; 
+            IP.value = datos[6];
 
-
-        function rellenarFormulario(nombre){
-
-            var valor = [];
-            valor = ["a", "b","c"];
-
-            alert(valor.lenght);
-
-            for(let i = 0; i < valor.lenght(); i++){
-
-              
-            }
         }
 
     </script>
@@ -150,13 +162,15 @@
     <form action="">
         <h3>Formulario Total</h3>
         <p>Nombre: <input type="text" id="Nombre" size="100" onblur="comprobarNombre(this)"></p>
-        <p>Apellidos: <input type="text" size="100" onblur="comprobarApellidos(this)"></p>
-        <p>e-mail: <input type="text" size="100" onblur="comprobarEmail(this)"></p>
-        <p>DNI: <input type="text" size="100" onblur="comprobarDNI(this)"></p>
-        <p>Password: <input type="text" size="100" onblur="comprobarPassword(this)"></p>
-        <p>Repetir Password: <input type="text" size="100" onblur=""></p>
-        <p>IP Equipo: <input type="text" size="100" onblur="comprobarIP(this)"></p>
-        <button value="Enviar" onclick="rellenarFormulario(document.getElementById('Nombre'))">ENVIAR</button>
+        <p>Apellidos: <input type="text" id="Apellidos" size="100" onblur="comprobarApellidos(this)"></p>
+        <p>e-mail: <input type="text" id="Email" size="100" onblur="comprobarEmail(this)"></p>
+        <p>DNI: <input type="text" id="DNI" size="100" onblur="comprobarDNI(this)"></p>
+        <p>Password: <input type="text" id="Password" size="100" onblur="comprobarPassword(this)"></p>
+        <p>Repetir Password: <input type="text" id="DNI2" size="100" onblur="passwordCoincide(this)"></p>
+        <p>IP Equipo: <input type="text" id="IP" size="100" onblur="comprobarIP(this)"></p>
+        <button value="Enviar" onclick="rellenarFormulario(document.getElementById('Nombre'), document.getElementById('Apellidos'), document.getElementById('Email'), 
+        document.getElementById('DNI'), document.getElementById('DNI2'),document.getElementById('Password'), document.getElementById('IP'));return false">ENVIAR</button>
+        
 
     </form>
 
