@@ -20,7 +20,7 @@
             if (!expresion_regular_nombre.test(nombre.value)) {
 
                 datos[0] = "Error";
-               
+
             } else {
 
                 datos[0] = nombre.value;
@@ -63,23 +63,23 @@
 
             if (!expresion_regular_pass.test(pass.value)) {
 
-                datos[3] = "Error";
+                datos[5] = "Error";
 
             } else {
 
-                datos[3] = pass.value;
+                datos[5] = pass.value;
             }
         }
 
-        function passwordCoincide(pass){
+        function passwordCoincide(pass) {
 
-            if(datos[3] == pass.value){
+            if (datos[5] == pass.value) {
 
                 datos[4] = pass.value;
 
-            }else{
+            } else {
 
-                datos[4] ="Error";
+                datos[4] = "Error";
             }
 
 
@@ -112,17 +112,17 @@
 
                     }
 
-                    datos[5] = dniFormateado;
+                    datos[3] = dniFormateado;
 
                 } else {
 
-                    datos[5] = "Error";
+                    datos[3] = "Error";
                 }
 
 
             } else {
 
-                datos[5] = "Error";
+                datos[3] = "Error";
             }
 
         }
@@ -135,58 +135,74 @@
 
                 datos[6] = "Error";
 
-            }else{
+            } else {
 
                 datos[6] = IP.value;
             }
         }
-        
-        function rellenarFormulario(nombre,apellidos,email,DNI,pass,pass2,IP){  
 
-            var todoCorrecto = false;
-    
-            nombre.value = datos[0];
-            apellidos.value = datos[1];
-            email.value =datos[2];
-            pass.value = datos[3];
-            pass2.value = datos[4];
-            DNI.value = datos[5]; 
-            IP.value = datos[6];
-        
+        function rellenarFormulario(nombre, apellidos, email, DNI, pass, pass2, IP) {
 
-            if(pass.value == "Error"){
 
-                pass.value = "";
-                pass2.value= "";
-                alert("Contraseña invalida. Recuerda que debe contener mínimo 8 carácteres de los cuales mínimo una mayúscula, otra minúscula y un número.")
+            var objetosInput = new Array();
+            var errorInputs = "";
+            var hayErrores = false;
 
-            } 
+            objetosInput.push(nombre);
+            objetosInput.push(apellidos);
+            objetosInput.push(email);
+            objetosInput.push(DNI);
+            objetosInput.push(pass);
+            objetosInput.push(pass2);
+            objetosInput.push(IP);
 
-            if(pass2.value == "Error"){
+
+            for (i = 0; i < datos.length; i++) {
+
+                objetosInput[i].value = datos[i];
+
+                if (datos[i] == "Error" ) {
+
+                    errorInputs += asignarError(objetosInput[i], i) + " ";
+                    objetosInput[i].value = "Error";
+                    objetosInput[i].style.color = "red";
+                    hayErrores = true;
+
+                }
+            }
+            
+
+            if (hayErrores) {
+
+                alert("Atención! Hay errores en los siguientes campos :" + errorInputs);
+
+            } else {
+
+                if(datos[i].length > 0){
+
+                    alert("Formulario enviado exitósamente!");
+
+                }
                 
-                pass.value = "";
-                pass2.value= "";
-                alert("Contraseña no coinciden")
-
-
             }
-
-            for(i = 0; i < datos.length; i++){
-
-                if(datos[i] == "Error") {
-                    
-                    todoCorrecto = false; 
-                    break;
-
-                }else{
-
-                    todoCorrecto = true;
-                } 
-            }
-            if(todoCorrecto) alert("Formulario enviado con exito!");
-
 
         }
+
+        function asignarError(input, index) {
+
+            switch (index) {
+
+                case 0: return "nombre";
+                case 1: return "apellidos";
+                case 2: return "e-mail";
+                case 3: return "DNI";
+                case 4: return "password";
+                case 5: return "confirmación de password";
+                case 6: return "IP";
+            }
+
+        }
+
 
     </script>
 
@@ -203,7 +219,8 @@
         <p>Password: <input type="password" id="Password" size="100" onblur="comprobarPassword(this)"></p>
         <p>Repetir Password: <input type="password" id="Password2" size="100" onblur="passwordCoincide(this)"></p>
         <p>IP Equipo: <input type="text" id="IP" size="100" onblur="comprobarIP(this)"></p>
-        <button value="Enviar" onclick="rellenarFormulario(document.getElementById('Nombre'), document.getElementById('Apellidos'), document.getElementById('Email'), 
+        <button value="Enviar"
+            onclick="rellenarFormulario(document.getElementById('Nombre'), document.getElementById('Apellidos'), document.getElementById('Email'), 
         document.getElementById('DNI'),document.getElementById('Password'), document.getElementById('Password2'), document.getElementById('IP'));return false">Enviar</button>
     </form>
 
