@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        @import url(estilo_cuadrados.css);
+    </style>
+
+    <script>
+
+        function cambiarACirculo(element) {
+
+            element.style.borderRadius = "200px";
+
+        }
+
+        function quitarCirculo(element) {
+
+            element.style.borderRadius = "";
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <div id="principal">
+
+        <div id="secundario">
+            <div id="rojo" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
+            </div>
+            <button>Eliminar</button>
+        </div>
+
+        <div id="secundario">
+            <div id="azul" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
+
+            </div>
+            <button>Eliminar</button>
+        </div>
+
+        <div id="secundario" >
+            <div id="verde" class="cuadrado"  onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
+
+            </div>
+            <button>Eliminar</button>
+        </div>
+
+        <div id="secundario">
+            <div id="negro" class="cuadrado"  onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
+
+            </div>
+            <button>Eliminar</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
