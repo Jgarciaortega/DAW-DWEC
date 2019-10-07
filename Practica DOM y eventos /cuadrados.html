@@ -16,6 +16,7 @@
         function cambiarACirculo(element) {
 
             element.style.borderRadius = "200px";
+            element.style.transition = "1s";
 
         }
 
@@ -23,6 +24,31 @@
 
             element.style.borderRadius = "";
 
+        }
+
+        function quitarSombra(element){
+
+            element.style.boxShadow = "none";
+           
+        }
+
+        function anyadeSombra(element){
+
+            element.style.boxShadow = "5px 5px 5px gray";
+        }
+
+        function anyadeSombraInterior(element){
+
+            element.style.boxShadow ="none";
+            element.style.boxShadow = "inset -5px -5px 5px gray";
+            element.style.transition = "1s";
+            
+        }
+
+        function eliminarCuadrado(posicion){
+
+            var principal = document.getElementById("principal");
+            principal.removeChild(document.getElementById(posicion));
         }
 
     </script>
@@ -33,31 +59,32 @@
 
     <div id="principal">
 
-        <div id="secundario">
-            <div id="rojo" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
+        <div class="secundario" id="primero">
+            <div id="rojo" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)"
+            onmousedown="quitarSombra(this)" onmouseup="anyadeSombra(this)" ondblclick="anyadeSombraInterior(this) ">
             </div>
-            <button>Eliminar</button>
+            <button onclick="eliminarCuadrado('primero')">Eliminar</button>
         </div>
 
-        <div id="secundario">
-            <div id="azul" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
-
+        <div class="secundario" id="segundo">
+            <div id="azul" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)"
+            onmousedown="quitarSombra(this)" onmouseup="anyadeSombra(this)" ondblclick="anyadeSombraInterior(this) ">
             </div>
-            <button>Eliminar</button>
+            <button onclick="eliminarCuadrado('segundo')">Eliminar</button>
         </div>
 
-        <div id="secundario" >
-            <div id="verde" class="cuadrado"  onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
-
+        <div class="secundario" id='tercero'>
+            <div id="verde" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)"
+            onmousedown="quitarSombra(this)" onmouseup="anyadeSombra(this)" ondblclick="anyadeSombraInterior(this) ">
             </div>
-            <button>Eliminar</button>
+            <button onclick="eliminarCuadrado('tercero')">Eliminar</button>
         </div>
 
-        <div id="secundario">
-            <div id="negro" class="cuadrado"  onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)">
-
+        <div class="secundario" id='cuarto'>
+            <div id="negro" class="cuadrado" onmouseover="cambiarACirculo(this)" onmouseout="quitarCirculo(this)"
+            onmousedown="quitarSombra(this)" onmouseup="anyadeSombra(this)" ondblclick="anyadeSombraInterior(this) ">
             </div>
-            <button>Eliminar</button>
+            <button onclick="eliminarCuadrado('cuarto')">Eliminar</button>
         </div>
     </div>
 
