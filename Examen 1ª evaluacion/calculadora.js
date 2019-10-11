@@ -5,129 +5,111 @@ document.addEventListener("click", function () {
 
 })*/
 
-document.addEventListener("DOMContentLoaded", 
+var botones; 
+var pantalla;
 
-    function() {
-    document.getElementById("0").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("0").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("1").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("1").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("2").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("2").addEventListener("mouseup",soltarTecla);
-    
-    document.getElementById("3").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("3").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("4").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("4").addEventListener("mouseup",soltarTecla);    
-
-    document.getElementById("5").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("5").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("6").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("6").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("7").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("7").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("8").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("8").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("9").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("9").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("C").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("C").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("%").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("%").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("/").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("/").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("x").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("x").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("-").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("-").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("+").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("+").addEventListener("mouseup",soltarTecla);
-
-    document.getElementById("=").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("=").addEventListener("mouseup",soltarTecla);
-  
-    document.getElementById("borrar").addEventListener("mousedown",pulsarTecla);
-    document.getElementById("borrar").addEventListener("mouseup",soltarTecla);
-
-
-   
-
-})
-
-function pulsarTecla (){
-
-   this.classList.add("sombreado");
-
-    actualizarDisplay(this.id);
+window.onload = function() {
+    pantalla = document.getElementById("pantalla");
+    pantalla.value = "0";
 }
 
-function soltarTecla(){
+document.addEventListener("DOMContentLoaded",
+
+    function () {
+
+        botones = document.getElementsByClassName("boton");
+
+        for (let index = 0; index < botones.length; index++) {
+
+            botones[index].addEventListener("mousedown", pulsarTecla);
+            botones[index].addEventListener("mouseup", soltarTecla);
+        }
+
+    })
+
+function pulsarTecla() {
+
+    this.classList.add("sombreado");
+
+    if(this.id == "borrar"){
+
+        actualizarDisplay(this.id);
+
+    }else{
+
+        actualizarDisplay(this.innerText);
+
+    }
+    
+}
+
+function soltarTecla() {
 
     this.classList.remove("sombreado");
 
 }
 
-function actualizarDisplay(digito){
+function actualizarDisplay(digito) {
 
-    var pantalla = document.querySelector("input");
     var totalDigitos = pantalla.value.length;
- 
-    if(pantalla.value == 0) pantalla.value = "";
 
-    
-    if(digito == "C"){
+
+    if (pantalla.value == 0) pantalla.value = "";
+
+    if (digito == "C") {
 
         pantalla.value = 0;
 
 
-    }else if (digito == "="){
+    } else if (digito == "=") {
 
         calcular(pantalla.value);
 
-    }else if (digito =="borrar") {
+    } else if (digito == "borrar") {
 
-        if(pantalla.value.length > 1){
+        if (pantalla.value.length > 1) {
 
-            pantalla.value = pantalla.value.substring(0 , totalDigitos -1);
+            pantalla.value = pantalla.value.substring(0, totalDigitos - 1);
 
-        }else{
+        } else {
 
             pantalla.value = 0;
         }
 
-    } else{
+    } else {
 
-        /* Si recibe una opcion no numerica */
-        if(isNaN(digito)){
-
-            /* Concatenamos siempre que el valor previo no sea un operador */
-            if(!isNaN(pantalla.value.charAt(totalDigitos -1))){
-
-                pantalla.value += digito;
     
+        /* Si recibe una opcion no numerica */
+        if (isNaN(digito)) {
+            /* Concatenamos siempre que el valor previo no sea un operador */
+
+            if (totalDigitos >= 1 && pantalla.value != 0) {
+
+                if (!isNaN(pantalla.value.charAt(totalDigitos - 1))) {
+                    
+                    pantalla.value += digito;
+
+                }
+            }else{
+                pantalla.value = 0;
             }
 
-        /* Si recibe un numero concatenamos */
-        }else{
-
+            /* Si recibe un numero concatenamos */
+        } else {
             pantalla.value += digito;
-    
-        }   
- 
-    }  
+
+        }
+
+    }
+}
+
+function calcular(operacion){
+
+    operacion = operacion.replace("x", "*");
+
+    pantalla.value = eval(operacion);
+   
+
 }
 
 
