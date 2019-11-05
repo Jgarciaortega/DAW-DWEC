@@ -1,0 +1,47 @@
+
+body{
+
+    display:grid;
+    justify-content: center;
+    background: grey;
+
+}
+
+#header{
+
+    font-size: 3em;
+    text-align: center;
+}
+
+#tablero{
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    grid-gap:1%;
+    width: 500px;
+    height: 500px;
+    
+}
+
+
+.casilla{
+
+    border: 5px solid red;
+    
+}
+
+.cruz{
+
+
+    background-image: url("../img/cruz.png");
+    background-size: 100% 100%;
+
+}
+
+.circulo{
+
+    background-image: url("../img/circulo.png");
+    background-size: 100% 100%;
+
+}
