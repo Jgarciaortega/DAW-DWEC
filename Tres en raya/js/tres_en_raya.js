@@ -4,8 +4,7 @@ window.onload = function () {
 }
 
 var turnoCPU = false;
-
-
+var finDeJuego = false;
 
 function crearTablero() {
 
@@ -23,7 +22,6 @@ function crearTablero() {
             casilla.setAttribute("class", "casilla");
             casilla.setAttribute("id", y + " " + x);
             casilla.addEventListener("mousedown", marcarCasilla);
-            // casilla.classList.add("casilla");
             nodoPadre.appendChild(casilla);
 
         }
@@ -34,43 +32,49 @@ function marcarCasilla(e) {
 
     const div = e.target;
 
-    setTimeout(eligeCPU, 1000);
+    if (!finDeJuego) {
 
-    if (!turnoCPU) {
+        setTimeout(eligeCPU, 1000);
 
-        div.classList.add("cruz");
-        turnoCPU = true;
+        if (!turnoCPU) {
+
+            div.classList.add("cruz");
+            turnoCPU = true;
+        }
+
+        comprobarVictoria();
+
     }
 }
-
 
 function eligeCPU() {
 
     let tablero = document.querySelectorAll(".casilla");
-    console.log(tablero);
     let cont = 0;
     let divValido = false;
 
-    while (!divValido) {
+    if(!finDeJuego){
 
-        let y = Math.floor(Math.random() * (3));
-        let x = Math.floor(Math.random() * (3));
+        while (!divValido) {
 
-        console.log(x + " " + y);
-        let div = document.getElementById(y + " " + x);
-
-        if (!div.classList.contains("circulo") && !div.classList.contains("cruz")) {
-
-            div.classList.add("circulo");
-            divValido = true;
+            let y = Math.floor(Math.random() * (3));
+            let x = Math.floor(Math.random() * (3));
+    
+            let div = document.getElementById(y + " " + x);
+    
+            if (!div.classList.contains("circulo") && !div.classList.contains("cruz")) {
+    
+                div.classList.add("circulo");
+                divValido = true;
+    
+            }
 
         }
-
+        comprobarVictoria();
     }
+   
     turnoCPU = false;
 }
-
-
 
 function comprobarVictoria() {
 
@@ -79,37 +83,79 @@ function comprobarVictoria() {
 
     //COMPROBACION HORIZONTAL
 
+    for (let y = 0; y < 3; y++) {
+
+        for (let x = 0; x < 3; x++) {
+
+            let casilla = document.getElementById(y + " " + x);
+            casilla.classList.contains("circulo") ? contCirculo++ : contCirculo = 0;
+            casilla.classList.contains("cruz") ? contCruz++ : contCruz = 0;
+
+        }
+
+        if (contCirculo == 3 || contCruz == 3) {
+
+            finDeJuego = true;
+            alert("FIN DEL JUEGO");
+            break;
+
+        }
+
+    }
+
+
+    //COMPROBACION VERTICAL
+
     for (let x = 0; x < 3; x++) {
 
         for (let y = 0; y < 3; y++) {
 
             let casilla = document.getElementById(y + " " + x);
-
-            
-
-        }
-
-    }
-
-    //COMPROBACION VERTICAL
-
-
-    for (let x = 0; x < 3; x++) {
-
-        for (let y = 0; y < 3; y++) {
-
-            
+            casilla.classList.contains("circulo") ? contCirculo++ : contCirculo = 0;
+            casilla.classList.contains("cruz") ? contCruz++ : contCruz = 0;
 
         }
 
+        if (contCirculo == 3 || contCruz == 3) {
+
+            finDeJuego = true;
+            alert("FIN DEL JUEGO");
+            break;
+
+        }
     }
+
 
     //COMPROBACION DIAGONAL
 
-    for (let x = 0; x < 3; x++) {
+    // Derecha
+    for (let i = 0; i < 3; i++) {
 
-        for (let y = 0; y < 3; y++) {
+        let casilla = document.getElementById(i + " " + i);
+        casilla.classList.contains("circulo") ? contCirculo++ : contCirculo = 0;
+        casilla.classList.contains("cruz") ? contCruz++ : contCruz = 0;
 
+        if (contCirculo == 3 || contCruz == 3) {
+
+            finDeJuego = true;
+            alert("FIN DEL JUEGO");
+            break;
+
+        }
+
+    }
+
+    // Izquierda
+    for (let y = 2, x = 0; y >= 0; y-- , x++) {
+
+        let casilla = document.getElementById(y + " " + x);
+        casilla.classList.contains("circulo") ? contCirculo++ : contCirculo = 0;
+        casilla.classList.contains("cruz") ? contCruz++ : contCruz = 0;
+
+        if (contCirculo == 3 || contCruz == 3) {
+
+            finDeJuego = true;
+            alert("FIN DEL JUEGO");
             
 
         }
@@ -118,3 +164,4 @@ function comprobarVictoria() {
 
 
 }
+
