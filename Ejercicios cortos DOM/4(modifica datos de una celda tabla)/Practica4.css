@@ -1,0 +1,12 @@
+table {
+    border: 1px solid black;
+}
+
+#tabla {
+    float: left;
+}
+
+#formulario {
+    float: left;
+    margin-left: 10%;
+}
