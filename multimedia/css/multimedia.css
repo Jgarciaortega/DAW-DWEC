@@ -1,0 +1,69 @@
+#principal{
+
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    
+}
+
+#pantalla{
+
+    display: grid;
+    grid-template-rows: 1fr 100px;
+    justify-content: center;
+
+}
+
+#controles{
+
+    display: grid;
+    grid-template-columns: repeat(7,75px);
+    justify-content: center;
+    grid-gap: 3%;
+    margin-bottom: 7%;
+}
+#navegadorVideos{
+
+    border: 1px solid black;
+}
+
+#mute{
+
+    background-image: url('../img/mute.png');
+    background-size: 100% 100%;
+}
+
+#play{
+
+    background-image: url('../img/play.png');
+    background-size: 100% 100%;
+}
+
+#reiniciar{
+
+    background-image: url('../img/reiniciar.png');
+    background-size: 100% 100%;
+}
+
+#rew{
+
+    background-image: url('../img/rew.png');
+    background-size: 100% 100%;
+}
+
+#for{
+
+    background-image: url('../img/for.png');
+    background-size: 100% 100%;
+}
+
+#volUp{
+
+    background-image: url('../img/volumeUp.png');
+    background-size: 100% 100%;
+}
+
+#volDown{
+
+    background-image: url('../img/volumeDown.png');
+    background-size: 100% 100%;
+}
