@@ -3,7 +3,7 @@
 function init() {
 
     videoRunning = false;
-
+   
     video = document.querySelector('video');
     document.getElementById('play').addEventListener('click', play);
     document.getElementById('reiniciar').addEventListener('click', reiniciar);
@@ -20,38 +20,53 @@ function init() {
         actualizarFrame(video);
     });
 
-    crearBanner();
-
 }
 
-function crearBanner(){
+function crearBanner() {
 
     let banner = document.createElement('div');
+    let p = document.createElement('p');
+    let textBanner = document.createTextNode('Ponga aquí su publicidad');
 
-    banner.setAttribute('id','banner');
-    banner.innerText = "Esto es un mensaje de publicidad";
+    banner.setAttribute('id', 'banner');
+    p.setAttribute('id', 'textBanner');
+    p.appendChild(textBanner);
+    banner.appendChild(p);
     document.getElementById('display').appendChild(banner);
 
-    setTimeout(quitarBanner,10000);
+    setTimeout(quitarBanner, 10000);
+    setTimeout(muestraCierreBanner, 3000);
+    
+}
+
+function muestraCierreBanner() {
+
+    let banner = document.getElementById('banner');
+    let botonCierre = document.createElement('button');
+
+    botonCierre.setAttribute('id', 'cerrarBanner');
+    botonCierre.innerHTML = "X";
+    botonCierre.addEventListener('click', quitarBanner);
+    banner.appendChild(botonCierre);
 
 }
 
-function quitarBanner(){
+function quitarBanner() {
 
     let nodoDisplay = document.getElementById('display');
     let nodoBanner = nodoDisplay.lastChild;
-    
+
     nodoDisplay.removeChild(nodoBanner);
-
+    
 }
-
 
 //Para mostrar algo de imagen adelanto un poco el tiempo de los videos
-function actualizarFrame(video){
+function actualizarFrame(video) {
 
-    video.currentTime +=2;
+    video.currentTime += 2;
 }
 
+//Funcion que intercambia el video por otro del navegador
 function runVideo() {
 
     //Tengo los dos videos (en reproduccion y seleccionado)
@@ -80,9 +95,7 @@ function runVideo() {
         videoRunning=true;
     }
 
-
-    
-
+    crearBanner();
 }
 
 function modificarTiempo() {
@@ -100,6 +113,7 @@ function play() {
         videoRunning = true;
         video.play();
         this.setAttribute('id', 'pause');
+        crearBanner();    
 
     } else {
 
@@ -108,11 +122,9 @@ function play() {
         this.setAttribute('id', 'play')
 
     }
-
 }
 
 function mutear() {
-
 
     if (video.muted) {
 
@@ -122,14 +134,11 @@ function mutear() {
 
         video.muted = true;
     }
-
 }
-
 function reiniciar() {
 
     video.load();
     play();
-
 }
 
 function modificarVolumen() {
@@ -137,12 +146,12 @@ function modificarVolumen() {
     //TODO Tratar la excepcion de index size volume
     if (this.id == 'volUp' && video.volume < 1) video.volume += 0.1;
 
-    if (this.id == 'volDown' && video.volume > 0) video.volume -= 0.1; 
+    if (this.id == 'volDown' && video.volume > 0) video.volume -= 0.1;
 
 }
 
 //VARIABLES GLOBALES
+let bannerRunning;
 let video;
-let videoRunning;
 
 window.onload = init;
