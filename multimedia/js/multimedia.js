@@ -12,64 +12,132 @@ function init() {
     document.getElementById('volDown').addEventListener('click', modificarVolumen);
     document.getElementById('rew').addEventListener('click', modificarTiempo);
     document.getElementById('for').addEventListener('click', modificarTiempo);
+
+    let videos = document.querySelectorAll('video');
+
+    videos.forEach(video => {
+        video.addEventListener('click', runVideo);
+        actualizarFrame(video);
+    });
+
+    crearBanner();
+
+}
+
+function crearBanner(){
+
+    let banner = document.createElement('div');
+
+    banner.setAttribute('id','banner');
+    banner.innerText = "Esto es un mensaje de publicidad";
+    document.getElementById('display').appendChild(banner);
+
+    setTimeout(quitarBanner,10000);
+
+}
+
+function quitarBanner(){
+
+    let nodoDisplay = document.getElementById('display');
+    let nodoBanner = nodoDisplay.lastChild;
     
+    nodoDisplay.removeChild(nodoBanner);
+
 }
 
 
-function modificarTiempo(){
+//Para mostrar algo de imagen adelanto un poco el tiempo de los videos
+function actualizarFrame(video){
 
-    if(this.id == 'rew') video.currentTime-=10;
-    if(this.id == 'for') video.currentTime+=10;
+    video.currentTime +=2;
+}
+
+function runVideo() {
+
+    //Tengo los dos videos (en reproduccion y seleccionado)
+    let videoPpal = document.getElementById('enReproduccion');
+    let videoSec = this;
+
+    //Localizo sus url
+    let urlPpal = videoPpal.childNodes[1].src;
+    let urlSec = videoSec.childNodes[1].src;
+
+    //Intercambio entre ellos las url
+    videoPpal.childNodes[1].setAttribute('src', urlSec);
+    videoSec.childNodes[1].setAttribute('src', urlPpal);
+
+    //Cargo video y le doy autoplay
+    videoPpal.load();
+    videoPpal.play();
+
+    videoSec.load();
+    actualizarFrame(videoSec);
+
+    //Modifico boton play/pause si no esta previamente en play
+    if(!videoRunning){
+
+        document.getElementById('play').setAttribute('id','pause');
+        videoRunning=true;
+    }
+
+
+    
+
+}
+
+function modificarTiempo() {
+
+    if (this.id == 'rew') video.currentTime -= 10;
+    if (this.id == 'for') video.currentTime += 10;
 
 }
 
 
 function play() {
 
-    if(!videoRunning){
+    if (!videoRunning) {
 
         videoRunning = true;
         video.play();
-        this.setAttribute('id','pause');
-       
+        this.setAttribute('id', 'pause');
 
-    }else{
+    } else {
 
         videoRunning = false;
         video.pause();
-        this.setAttribute('id','play');
-        
-    } 
-   
+        this.setAttribute('id', 'play')
+
+    }
+
 }
 
 function mutear() {
 
 
-    if(video.muted){
+    if (video.muted) {
 
         video.muted = false;
 
-    }else{
+    } else {
 
         video.muted = true;
     }
 
 }
 
-function reiniciar(){
+function reiniciar() {
 
     video.load();
     play();
-    
+
 }
 
-function modificarVolumen(){
+function modificarVolumen() {
 
     //TODO Tratar la excepcion de index size volume
-     if(this.id == 'volUp' && video.volume <1) video.volume += 0.1;
+    if (this.id == 'volUp' && video.volume < 1) video.volume += 0.1;
 
-     if(this.id == 'volDown' && video.volume >0) video.volume -= 0.1; console.log(video.volume);
+    if (this.id == 'volDown' && video.volume > 0) video.volume -= 0.1; 
 
 }
 
