@@ -3,7 +3,9 @@
 function init() {
 
     videoRunning = false;
-   
+    bannerActivo = false;
+    contadorSeg = 10;
+
     video = document.querySelector('video');
     document.getElementById('play').addEventListener('click', play);
     document.getElementById('reiniciar').addEventListener('click', reiniciar);
@@ -20,11 +22,58 @@ function init() {
         actualizarFrame(video);
     });
 
+     document.getElementById('display').addEventListener('mouseover', mostrarBotonera);
+     document.getElementById('display').addEventListener('mouseout', quitarBotonera);
+}
+
+function quitarBotonera(){
+
+    if(!bannerActivo) this.lastElementChild.classList.remove('controlVisible');
+    
+
+}
+
+function mostrarBotonera(){
+
+    if(!bannerActivo) this.lastElementChild.classList.add('controlVisible');
+
+}
+
+
+function cuentaAtras() {
+
+    let banner = document.getElementById('banner');
+    let cuentaAtras;
+
+    if(contadorSeg == 10){
+
+        cuentaAtras = document.createElement('div');
+        cuentaAtras.setAttribute('id','cuentaAtras');
+
+    }else{
+
+       cuentaAtras = document.getElementById('cuentaAtras');
+    }
+
+    cuentaAtras.innerHTML = contadorSeg;
+    banner.appendChild(cuentaAtras);
+    
+    if (contadorSeg > -1) {
+
+        contadorSeg -= 1;
+        setTimeout("cuentaAtras("+ contadorSeg +")", 1000);
+        
+    }else{
+
+        banner.removeChild(cuentaAtras);
+    }
+    
 }
 
 function crearBanner() {
 
     let banner = document.createElement('div');
+    banner.setAttribute('id', 'banner');
     let p = document.createElement('p');
     let textBanner = document.createTextNode('Ponga aquí su publicidad');
 
@@ -34,9 +83,13 @@ function crearBanner() {
     banner.appendChild(p);
     document.getElementById('display').appendChild(banner);
 
-    setTimeout(quitarBanner, 10000);
-    setTimeout(muestraCierreBanner, 3000);
-    
+    if (!bannerActivo) {
+
+        setTimeout(muestraCierreBanner, 11000);
+        bannerActivo = true;
+        cuentaAtras();
+    }
+
 }
 
 function muestraCierreBanner() {
@@ -57,7 +110,8 @@ function quitarBanner() {
     let nodoBanner = nodoDisplay.lastChild;
 
     nodoDisplay.removeChild(nodoBanner);
-    
+    bannerActivo = false;
+
 }
 
 //Para mostrar algo de imagen adelanto un poco el tiempo de los videos
@@ -89,69 +143,84 @@ function runVideo() {
     actualizarFrame(videoSec);
 
     //Modifico boton play/pause si no esta previamente en play
-    if(!videoRunning){
+    if (!videoRunning) {
 
-        document.getElementById('play').setAttribute('id','pause');
-        videoRunning=true;
+        document.getElementById('play').setAttribute('id', 'pause');
+        videoRunning = true;
     }
 
-    crearBanner();
 }
 
 function modificarTiempo() {
 
-    if (this.id == 'rew') video.currentTime -= 10;
-    if (this.id == 'for') video.currentTime += 10;
+    if (!bannerActivo) {
 
+        if (this.id == 'rew') video.currentTime -= 10;
+        if (this.id == 'for') video.currentTime += 10;
+
+    }
 }
-
 
 function play() {
 
-    if (!videoRunning) {
+    if (!bannerActivo) {
 
-        videoRunning = true;
-        video.play();
-        this.setAttribute('id', 'pause');
-        crearBanner();    
+        if (!videoRunning) {
 
-    } else {
+            videoRunning = true;
+            video.play();
+            this.setAttribute('id', 'pause');
+            crearBanner();
 
-        videoRunning = false;
-        video.pause();
-        this.setAttribute('id', 'play')
+        } else {
 
+            videoRunning = false;
+            video.pause();
+            this.setAttribute('id', 'play'); 
+        }
     }
 }
 
 function mutear() {
 
-    if (video.muted) {
+    if (!bannerActivo) {
 
-        video.muted = false;
+        if (video.muted) {
 
-    } else {
+            video.muted = false;
 
-        video.muted = true;
+        } else {
+
+            video.muted = true;
+        }
     }
 }
 function reiniciar() {
 
-    video.load();
-    play();
+    if (!bannerActivo) {
+
+        video.load();
+        play();
+    }
+
 }
 
 function modificarVolumen() {
 
-    //TODO Tratar la excepcion de index size volume
-    if (this.id == 'volUp' && video.volume < 1) video.volume += 0.1;
+    if (!bannerActivo) {
 
-    if (this.id == 'volDown' && video.volume > 0) video.volume -= 0.1;
+        //TODO Tratar la excepcion de index size volume
+        if (this.id == 'volUp' && video.volume < 1) video.volume += 0.1;
+
+        if (this.id == 'volDown' && video.volume > 0) video.volume -= 0.1;
+    }
 
 }
 
 //VARIABLES GLOBALES
-let bannerRunning;
+
 let video;
+let bannerActivo;
+let contadorSeg;
 
 window.onload = init;
