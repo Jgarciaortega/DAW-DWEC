@@ -26,7 +26,7 @@ body{
 
     position: relative;
     overflow: hidden;
-    height: 550px;
+    height: 450px;
 
 }
 
@@ -42,7 +42,7 @@ body{
 
 .controlVisible{
 
-    transform: translateY(-40px);
+    transform: translateY(-36px);
 }
 
 
@@ -130,8 +130,8 @@ button:hover{
     left: 190px; 
     top: 40px;
     background: orangered;
-    width: 600px;
-    height: 500px;
+    width: 400px;
+    height: 300px;
     opacity: 0.8;
     display: flex;
     flex-direction: column;

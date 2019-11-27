@@ -1,10 +1,9 @@
 
-
 function init() {
 
     videoRunning = false;
     bannerActivo = false;
-    contadorSeg = 10;
+    contadorSeg = 5;
 
     video = document.querySelector('video');
     document.getElementById('play').addEventListener('click', play);
@@ -24,12 +23,16 @@ function init() {
 
      document.getElementById('display').addEventListener('mouseover', mostrarBotonera);
      document.getElementById('display').addEventListener('mouseout', quitarBotonera);
+
+     crearBanner();
 }
+
+
+/* CODIGO BOTONERA DESPLEGABLE */
 
 function quitarBotonera(){
 
     if(!bannerActivo) this.lastElementChild.classList.remove('controlVisible');
-    
 
 }
 
@@ -39,13 +42,16 @@ function mostrarBotonera(){
 
 }
 
+/****************************/
+
+
 
 function cuentaAtras() {
 
     let banner = document.getElementById('banner');
     let cuentaAtras;
 
-    if(contadorSeg == 10){
+    if(contadorSeg == 5){
 
         cuentaAtras = document.createElement('div');
         cuentaAtras.setAttribute('id','cuentaAtras');
@@ -58,14 +64,17 @@ function cuentaAtras() {
     cuentaAtras.innerHTML = contadorSeg;
     banner.appendChild(cuentaAtras);
     
+    //Mientras no lleguen a -1 descuenta segundos...
     if (contadorSeg > -1) {
 
         contadorSeg -= 1;
         setTimeout("cuentaAtras("+ contadorSeg +")", 1000);
-        
+
+    //...al acabar cuenta atras borra cuenta atras y muestra cierre ventana        
     }else{
 
         banner.removeChild(cuentaAtras);
+        muestraCierreBanner();
     }
     
 }
@@ -85,7 +94,6 @@ function crearBanner() {
 
     if (!bannerActivo) {
 
-        setTimeout(muestraCierreBanner, 11000);
         bannerActivo = true;
         cuentaAtras();
     }
@@ -111,6 +119,9 @@ function quitarBanner() {
 
     nodoDisplay.removeChild(nodoBanner);
     bannerActivo = false;
+    contadorSeg = 5;
+
+    document.getElementById('enReproduccion').play();
 
 }
 
@@ -120,7 +131,7 @@ function actualizarFrame(video) {
     video.currentTime += 2;
 }
 
-//Funcion que intercambia el video por otro del navegador
+//Funcion que intercambia el video por otro del navegador de la derecha
 function runVideo() {
 
     //Tengo los dos videos (en reproduccion y seleccionado)
@@ -135,20 +146,22 @@ function runVideo() {
     videoPpal.childNodes[1].setAttribute('src', urlSec);
     videoSec.childNodes[1].setAttribute('src', urlPpal);
 
-    //Cargo video y le doy autoplay
+    //Cargo los video 
     videoPpal.load();
-    videoPpal.play();
-
     videoSec.load();
+
+    //Los adelanto un poco para visualizar algo de imagen
+    actualizarFrame(videoPpal);
     actualizarFrame(videoSec);
 
-    //Modifico boton play/pause si no esta previamente en play
-    if (!videoRunning) {
+    if(bannerActivo){
 
-        document.getElementById('play').setAttribute('id', 'pause');
-        videoRunning = true;
-    }
+        interrumpirCuenta = true;
+        quitarBanner();
 
+    } 
+
+    crearBanner();
 }
 
 function modificarTiempo() {
@@ -170,7 +183,6 @@ function play() {
             videoRunning = true;
             video.play();
             this.setAttribute('id', 'pause');
-            crearBanner();
 
         } else {
 
