@@ -26,10 +26,13 @@ body{
 #display{
 
     position: relative;
-    overflow: hidden;
-    height: 450px;
+     overflow: hidden; 
+     height: 450px; 
+    display: grid;
+    grid-template-columns: 1fr;
 
 }
+
 
 #controles{
 
@@ -43,7 +46,14 @@ body{
 
 .controlVisible{
 
-    transform: translateY(-36px);
+     transform: translateY(-36px); 
+}
+
+progress{
+
+   
+    border: 1px solid black;
+   
 }
 
 
