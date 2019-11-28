@@ -17,66 +17,65 @@ function init() {
     let videos = document.querySelectorAll('video');
 
     videos.forEach(video => {
-        video.addEventListener('click', runVideo);
+        //Se anyade evento de click a todos los videos excepto el que este en reproduccion
+        if(video.id != 'enReproduccion')  video.addEventListener('click', runVideo);
         actualizarFrame(video);
     });
 
-     document.getElementById('display').addEventListener('mouseover', mostrarBotonera);
-     document.getElementById('display').addEventListener('mouseout', quitarBotonera);
+    document.getElementById('display').addEventListener('mouseover', mostrarBotonera);
+    document.getElementById('display').addEventListener('mouseout', quitarBotonera);
 
-     crearBanner();
+    crearBanner();
 }
 
 
 /* CODIGO BOTONERA DESPLEGABLE */
 
-function quitarBotonera(){
+function quitarBotonera() {
 
-    if(!bannerActivo) this.lastElementChild.classList.remove('controlVisible');
+    if (!bannerActivo) this.lastElementChild.classList.remove('controlVisible');
 
 }
 
-function mostrarBotonera(){
+function mostrarBotonera() {
 
-    if(!bannerActivo) this.lastElementChild.classList.add('controlVisible');
+    if (!bannerActivo) this.lastElementChild.classList.add('controlVisible');
 
 }
 
 /****************************/
-
-
 
 function cuentaAtras() {
 
     let banner = document.getElementById('banner');
     let cuentaAtras;
 
-    if(contadorSeg == 5){
+    if (contadorSeg == 5) {
 
         cuentaAtras = document.createElement('div');
-        cuentaAtras.setAttribute('id','cuentaAtras');
+        cuentaAtras.setAttribute('id', 'cuentaAtras');
 
-    }else{
+    } else {
 
-       cuentaAtras = document.getElementById('cuentaAtras');
+        cuentaAtras = document.getElementById('cuentaAtras');
     }
 
     cuentaAtras.innerHTML = contadorSeg;
     banner.appendChild(cuentaAtras);
-    
+
     //Mientras no lleguen a -1 descuenta segundos...
     if (contadorSeg > -1) {
 
         contadorSeg -= 1;
-        setTimeout("cuentaAtras("+ contadorSeg +")", 1000);
+        setTimeout("cuentaAtras(" + contadorSeg + ")", 1000);
 
     //...al acabar cuenta atras borra cuenta atras y muestra cierre ventana        
-    }else{
+    } else {
 
         banner.removeChild(cuentaAtras);
         muestraCierreBanner();
     }
-    
+
 }
 
 function crearBanner() {
@@ -96,6 +95,7 @@ function crearBanner() {
 
         bannerActivo = true;
         cuentaAtras();
+ 
     }
 
 }
@@ -122,7 +122,10 @@ function quitarBanner() {
     contadorSeg = 5;
 
     document.getElementById('enReproduccion').play();
+    document.getElementById('play').setAttribute('id', 'pause');
 
+    videoRunning = true;
+   
 }
 
 //Para mostrar algo de imagen adelanto un poco el tiempo de los videos
@@ -134,34 +137,41 @@ function actualizarFrame(video) {
 //Funcion que intercambia el video por otro del navegador de la derecha
 function runVideo() {
 
-    //Tengo los dos videos (en reproduccion y seleccionado)
-    let videoPpal = document.getElementById('enReproduccion');
-    let videoSec = this;
+    if (!bannerActivo) {
 
-    //Localizo sus url
-    let urlPpal = videoPpal.childNodes[1].src;
-    let urlSec = videoSec.childNodes[1].src;
+        if(videoRunning){
+            document.getElementById('pause').setAttribute('id', 'play');
+            videoRunning = false;
 
-    //Intercambio entre ellos las url
-    videoPpal.childNodes[1].setAttribute('src', urlSec);
-    videoSec.childNodes[1].setAttribute('src', urlPpal);
+        }else{
+            document.getElementById('play').setAttribute('id', 'pause');
+            videoRunning = true;
+        } 
 
-    //Cargo los video 
-    videoPpal.load();
-    videoSec.load();
+        //Tengo los dos videos (en reproduccion y seleccionado)
+        let videoPpal = document.getElementById('enReproduccion');
+        let videoSec = this;
 
-    //Los adelanto un poco para visualizar algo de imagen
-    actualizarFrame(videoPpal);
-    actualizarFrame(videoSec);
+        //Localizo sus url
+        let urlPpal = videoPpal.childNodes[1].src;
+        let urlSec = videoSec.childNodes[1].src;
 
-    if(bannerActivo){
+        //Intercambio entre ellos las url
+        videoPpal.childNodes[1].setAttribute('src', urlSec);
+        videoSec.childNodes[1].setAttribute('src', urlPpal);
 
-        interrumpirCuenta = true;
-        quitarBanner();
+        //Cargo los video 
+        videoPpal.load();
+        videoSec.load();
 
-    } 
+        //Los adelanto un poco para visualizar algo de imagen
+        actualizarFrame(videoPpal);
+        actualizarFrame(videoSec);
 
-    crearBanner();
+        crearBanner();
+
+    }
+
 }
 
 function modificarTiempo() {
@@ -170,10 +180,9 @@ function modificarTiempo() {
 
         if (this.id == 'rew') video.currentTime -= 10;
         if (this.id == 'for') video.currentTime += 10;
-
     }
 }
-
+//PLAY / PAUSE
 function play() {
 
     if (!bannerActivo) {
@@ -188,35 +197,29 @@ function play() {
 
             videoRunning = false;
             video.pause();
-            this.setAttribute('id', 'play'); 
+            this.setAttribute('id', 'play');
         }
     }
 }
-
 function mutear() {
 
     if (!bannerActivo) {
 
-        if (video.muted) {
+        if (video.muted) video.muted = false;
+        else video.muted = true;
 
-            video.muted = false;
-
-        } else {
-
-            video.muted = true;
-        }
     }
 }
 function reiniciar() {
 
     if (!bannerActivo) {
 
+        videoRunning = false;
         video.load();
         play();
     }
 
 }
-
 function modificarVolumen() {
 
     if (!bannerActivo) {
@@ -230,7 +233,7 @@ function modificarVolumen() {
 }
 
 //VARIABLES GLOBALES
-
+let videoRunning;
 let video;
 let bannerActivo;
 let contadorSeg;

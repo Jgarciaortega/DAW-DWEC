@@ -1,7 +1,7 @@
 body{
 
-    background-image: url("../img/fondo.jpg");
-   background-size:100% 100%;
+    background-image: url("../img/fondo.png");
+   background-size:150% 150%;
 
 }
 
@@ -17,6 +17,7 @@ body{
 #pantalla{
 
     display: grid;
+    margin-top: 9%;
     grid-template-rows: 1fr 100px;
     justify-content: center;
 
@@ -35,7 +36,7 @@ body{
     display: grid;
     grid-template-columns: repeat(7,50px);
     padding-left: 2%;
-    transition: 1s transform;
+    transition: 0.4s transform;
     background: black;
 
 }
