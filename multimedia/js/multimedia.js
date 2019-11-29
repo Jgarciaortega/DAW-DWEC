@@ -1,12 +1,11 @@
 
 function init() {
 
-    videoRunning = false;
     bannerActivo = false;
     contadorSeg = 5;
 
     video = document.querySelector('video');
-    document.getElementById('play').addEventListener('click', play);
+    document.getElementById('play').addEventListener('click', runVideo);
     document.getElementById('reiniciar').addEventListener('click', reiniciar);
     document.getElementById('mute').addEventListener('click', mutear);
     document.getElementById('volUp').addEventListener('click', modificarVolumen);
@@ -18,7 +17,7 @@ function init() {
 
     videos.forEach(video => {
         //Se anyade evento de click a todos los videos excepto el que este en reproduccion
-        if(video.id != 'enReproduccion')  video.addEventListener('click', runVideo);
+        if (video.id != 'enReproduccion') video.addEventListener('click', changeVideo);
         actualizarFrame(video);
     });
 
@@ -69,7 +68,7 @@ function cuentaAtras() {
         contadorSeg -= 1;
         setTimeout("cuentaAtras(" + contadorSeg + ")", 1000);
 
-    //...al acabar cuenta atras borra cuenta atras y muestra cierre ventana        
+        //...al acabar cuenta atras borra cuenta atras y muestra cierre ventana        
     } else {
 
         banner.removeChild(cuentaAtras);
@@ -95,7 +94,6 @@ function crearBanner() {
 
         bannerActivo = true;
         cuentaAtras();
- 
     }
 
 }
@@ -119,13 +117,10 @@ function quitarBanner() {
 
     nodoDisplay.removeChild(nodoBanner);
     bannerActivo = false;
+
+    runVideo();
     contadorSeg = 5;
 
-    document.getElementById('enReproduccion').play();
-    document.getElementById('play').setAttribute('id', 'pause');
-
-    videoRunning = true;
-   
 }
 
 //Para mostrar algo de imagen adelanto un poco el tiempo de los videos
@@ -135,19 +130,17 @@ function actualizarFrame(video) {
 }
 
 //Funcion que intercambia el video por otro del navegador de la derecha
-function runVideo() {
-
+function changeVideo() {
+   
     if (!bannerActivo) {
 
+        //Si previamente el video esta play lo detengo
         if(videoRunning){
-            document.getElementById('pause').setAttribute('id', 'play');
+            video.pause();
             videoRunning = false;
-
-        }else{
-            document.getElementById('play').setAttribute('id', 'pause');
-            videoRunning = true;
-        } 
-
+            document.getElementById('pause').setAttribute('id', 'play');
+        }
+      
         //Tengo los dos videos (en reproduccion y seleccionado)
         let videoPpal = document.getElementById('enReproduccion');
         let videoSec = this;
@@ -169,10 +162,10 @@ function runVideo() {
         actualizarFrame(videoSec);
 
         crearBanner();
-
     }
-
 }
+
+
 
 function modificarTiempo() {
 
@@ -183,22 +176,25 @@ function modificarTiempo() {
     }
 }
 //PLAY / PAUSE
-function play() {
+function runVideo() {
 
+     console.log(video.duration);
     if (!bannerActivo) {
 
         if (!videoRunning) {
 
             videoRunning = true;
             video.play();
-            this.setAttribute('id', 'pause');
+            document.getElementById('play').setAttribute('id', 'pause');
 
         } else {
 
             videoRunning = false;
             video.pause();
-            this.setAttribute('id', 'play');
+            document.getElementById('pause').setAttribute('id', 'play');
         }
+
+       
     }
 }
 function mutear() {
@@ -233,7 +229,7 @@ function modificarVolumen() {
 }
 
 //VARIABLES GLOBALES
-let videoRunning;
+let videoRunning = false;
 let video;
 let bannerActivo;
 let contadorSeg;
