@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+
+
+        window.onload = init;
+
+        let ruta;
+        let metodo;
+        let envio;
+        let xml;
+
+        function init(){
+
+            document.querySelector('button').addEventListener('click', consultar);
+            ruta = 'http://localhost/menu.php';
+            metodo = 'GET';
+            envio = 'null';
+            xml = true;
+
+        }
+
+        function consultar(){
+            descargar(metodo,ruta,envio,xml, tratarAjax);
+        }
+
+        function descargar(metodo, ruta, envio, xml, funcion) {
+            // Obtener la instancia del objeto XMLHttpRequest
+            let peticion_http = new XMLHttpRequest();
+            
+            if(xml)peticion_http.overrideMimeType('text/xml');
+            // Preparar la función de respuesta
+            peticion_http.onreadystatechange = mostrar;
+            // Realizar petición HTTP
+            peticion_http.open(metodo, ruta, true);
+            peticion_http.send(envio);
+
+            function mostrar() {
+                if (peticion_http.readyState == 4 && peticion_http.status == 200) {                    
+                    alert(peticion_http.responseXML);
+                    if (xml) {
+                        funcion(peticion_http.responseXML);
+                    } else funcion(peticion_http.responseText);
+                }
+            }
+        }
+        //var json = JSON.parse(descargar());
+
+
+        function tratarAjax(dato) {
+            console.log(dato.getElementsByTagName("comida"));
+        }
+    </script>
+
+
+
+</head>
+
+<body>
+
+    <button>PRESIONAR</button>
+
+</body>
+
+</html>
