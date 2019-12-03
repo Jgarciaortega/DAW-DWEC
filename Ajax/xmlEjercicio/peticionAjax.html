@@ -53,8 +53,33 @@
         //var json = JSON.parse(descargar());
 
 
-        function tratarAjax(dato) {
-            console.log(dato.getElementsByTagName("comida"));
+        function tratarAjax(xml) {
+           
+           let table = document.querySelector('table');
+
+           console.log(table);
+
+            let docXML = xml.responseXML;
+            let tabla = "<tr><th>nombre</th><th>precio</th><th>descripcion</th><th>calorias</th>";
+            let comidas = docXML.getElementsByTagName('comida');
+
+            for(let i = 0; i<comidas.length; i++){
+
+                tabla += '<tr><td>';
+                tabla += comidas[i].getElementsByTagName('nombre')[0].textContent;
+                tabla += '</td><td>';
+                tabla += comidas[i].getElementsByTagName('precio')[0].textContent;
+                tabla += '</td><td>';
+                tabla += comidas[i].getElementsByTagName('descripcion')[0].textContent;
+                tabla += '</td><td>';
+                tabla += comidas[i].getElementsByTagName('calorias')[0].textContent;
+                tabla += '</td></tr>';
+            }
+
+            table.innerHTML =  tabla;
+
+
+
         }
     </script>
 
@@ -65,6 +90,7 @@
 <body>
 
     <button>PRESIONAR</button>
+    <table></table>
 
 </body>
 

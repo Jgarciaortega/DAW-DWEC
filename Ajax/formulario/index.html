@@ -16,13 +16,13 @@
 
     <form action="">
         <h3>Formulario Total</h3>
-        <p>Nombre: <input type="text" id="Nombre" size="100" onblur="comprobarNombre(this)"></p>
-        <p>Apellidos: <input type="text" id="Apellidos" size="100" onblur="comprobarApellidos(this)"></p>
-        <p>e-mail: <input type="text" id="Email" size="100" onblur="comprobarEmail(this)"></p>
-        <p>DNI: <input type="text" id="DNI" size="100" onblur="comprobarDNI(this)"></p>
-        <p>Password: <input type="password" id="Password" size="100" onblur="comprobarPassword(this)"></p>
-        <p>Repetir Password: <input type="password" id="Password2" size="100" onblur="passwordCoincide(this)"></p>
-        <p>IP Equipo: <input type="text" id="IP" size="100" onblur="comprobarIP(this)"></p>
+        <p>Nombre: <input type="text" id="nombre" size="100"></p>
+        <p>Apellidos: <input type="text" id="apellidos" size="100"></p>
+        <p>e-mail: <input type="text" id="email" size="100"></p>
+        <p>DNI: <input type="text" id="DNI" size="100"></p>
+        <p>Password: <input type="password" id="password" size="100"></p>
+        <p>Repetir Password: <input type="password" id="password2" size="100"></p>
+        <p>IP Equipo: <input type="text" id="IP" size="100"></p>
         <button value="Enviar"
             onclick="rellenarFormulario(document.getElementById('Nombre'), document.getElementById('Apellidos'), document.getElementById('Email'), 
         document.getElementById('DNI'),document.getElementById('Password'), document.getElementById('Password2'), document.getElementById('IP'));return false">Enviar</button>
