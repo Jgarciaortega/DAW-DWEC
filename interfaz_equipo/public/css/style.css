@@ -1,0 +1,67 @@
+
+#main{
+
+    display: flex;
+    flex-direction: row;
+}
+
+
+#campo{
+    width: 1000px;
+    height: 1100px;
+    background-image: url('../img/campo-de-futbol.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+   
+}
+
+#banquillo{
+
+    border: 1px solid black;
+    height: 622px;
+    width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.jugador{
+
+    width: 100px;
+    height: 100px;
+    border: 1px soli black;
+    background-image: url('../img/jugador.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+}
+
+.jugadorReserva{
+
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    /* background-image: url('../img/jugador2.png');
+    background-size: contain;
+    background-repeat: no-repeat; */
+
+}
+
+#porteria{
+    margin-top: 100%;
+}
+   
+#defensa{
+    margin-top: 40%;
+}
+
+#medio{
+    margin-top: 40%;
+}
+
+#delantera{
+    margin-top: 80%;
+}
