@@ -1,0 +1,87 @@
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.sql.*;
+
+public class ListadoC extends HttpServlet {
+
+    public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
+        
+        HttpSession misesion;
+        PrintWriter salida = respuesta.getWriter();
+
+	
+	misesion = peticion.getSession(true);
+
+	salida.println("<!DOCTYPE html>");  // HTML 5
+        salida.println("<html><head>");
+        salida.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+
+	salida.println("<title> LISTADO </title></head>");
+
+	salida.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Mate+SC\" />");
+	salida.println("<link rel=\"stylesheet\" href=\""+peticion.getContextPath()+"/css/style.css\" type=\"text/css\">");
+	
+        salida.println("<body>");
+
+	salida.println("<header>");
+        salida.println("<h1> STOCK DE CERVEZAS </h1>");  // Prints "Hello, world!"
+	salida.println("</header");
+
+	salida.println("<main>");
+
+	//salida.println("<h1> Figuras del Tablero </h1>");
+	salida.println("<table>");
+
+	// Construccion de la tabla
+	try{
+	    Class.forName("com.mysql.jdbc.Driver");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cervezas", "tomcat", "tomcat");
+            PreparedStatement pst = conn.prepareStatement("Select * from unidades;");
+	    ResultSet rs = pst.executeQuery();
+	    
+	    while(rs.next()){
+		salida.println("<tr>");
+
+		salida.println("<td>");
+		salida.println("<img class=\"figuras\" src=\""+peticion.getContextPath()+"/imgs/"+rs.getString(4)+"\">");
+		salida.println("</td>");
+			       
+		
+		salida.println("<td>");
+		salida.println(rs.getString(2));
+		salida.println("</td>");
+
+		salida.println("<td>");
+		salida.println(rs.getString(3));
+		salida.println("</td>");
+
+		salida.println("<td>");
+		salida.println("<form action=http://localhost:8080/gestion/listado method=get>");
+		salida.println("<input class=\"carrito\" type=\"submit\" name=\""+rs.getString(2) +"\">Comprar</input>");
+		salida.println("</form>");
+		salida.println("</td>");
+		
+		
+		salida.println("</tr>");
+
+	    }
+
+		salida.println("<a class=\"enlaceDetalles\" href=\"detalles\"> Elementos en la Cesta (_) </a>");
+	    
+	    }catch(ClassNotFoundException | SQLException e){
+	    salida.println(e.toString());
+	    }
+
+	salida.println("</table>");
+
+	salida.println("</main>");
+
+	salida.println("<div class=\"debug\"");
+    salida.println(misesion.toString());
+	salida.println("</div>");
+
+	// salida.println("<script src=\""+peticion.getContextPath()+"/js/gestion.js\"></script>");
+	salida.println("</body></html>");        
+    }
+}
