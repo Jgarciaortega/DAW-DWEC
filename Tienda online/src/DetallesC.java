@@ -2,35 +2,41 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
+import java.util.*;
 
 public class DetallesC extends HttpServlet {
-    Integer cont1;
-    Integer cont2;
-    Integer cont3;
+    int id1;
+    int id2 ;
+    int id3 ;
+	int total;
 
     public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
         
-        HttpSession misesion;
-        PrintWriter salida = respuesta.getWriter();
+   HttpSession misesion;
+    PrintWriter salida = respuesta.getWriter();
+	int idCerveza;
+	ArrayList<Integer> lista;
 
-        misesion = peticion.getSession(true);
+	id1 = 0;
+    id2 = 0;
+    id3 = 0;
+
+	misesion = peticion.getSession(true);
+	lista =(ArrayList<Integer>) misesion.getAttribute("idproductos");
+	
 
 	salida.println("<!DOCTYPE html>");  // HTML 5
-        salida.println("<html><head>");
-        salida.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-
+    salida.println("<html><head>");
+    salida.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
 	salida.println("<title> DETALLES </title></head>");
 
 	salida.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Mate+SC\" />");
 	salida.println("<link rel=\"stylesheet\" href=\""+peticion.getContextPath()+"/css/style.css\" type=\"text/css\">");
-	
-        salida.println("<body>");
-
+    salida.println("<body>");
 	salida.println("<header>");
-        salida.println("<h1> CARRITO </h1>");  // Prints "Hello, world!"
+    salida.println("<h1> CARRITO </h1>");  // Prints "Hello, world!"
 	salida.println("<a class=\"enlaceDetalles\" href=\"listado\"> Seguir Comprando </a>");
 	salida.println("</header");
-
 	salida.println("<main>");
 
 	//salida.println("<h1> Figuras del Tablero </h1>");
@@ -40,40 +46,68 @@ public class DetallesC extends HttpServlet {
 	try{
 	    Class.forName("com.mysql.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cervezas", "tomcat", "tomcat");
-            PreparedStatement pst = conn.prepareStatement("Select * from unidades;");
+        PreparedStatement pst = conn.prepareStatement("Select * from unidades;");
 	    ResultSet rs = pst.executeQuery();
-	    
-	    while(rs.next()){
 
 
-		if(misesion.getAttribute(rs.getString(1)) != null){
-		    int aux = (int)misesion.getAttribute(rs.getString(1));
+		for(Integer id : (ArrayList<Integer>) misesion.getAttribute("idproductos")){
 
-		    salida.println("<tr>");
+			switch(id){
 
-		salida.println("<td>");
-		salida.println("<img class=\"figuras\" src=\""+peticion.getContextPath()+"/imgs/"+rs.getString(4)+"\">");
-		salida.println("</td>");
-
-		salida.println("<td>");
-		salida.println("<h2> x " +aux +"</h2>");
-		salida.println("</td>");
-		salida.println("</tr>");
+				case(1): id1++;break;
+				case(2): id2++;break;
+				case(3): id3++;break;	
+			}
 		}
-	    }
+
+		total = (id1 * 3) + (id2 * 4) + (id3 * 2);
+		misesion.setAttribute("total", total);
+			salida.println("<tr>");
+			salida.println("<td>");
+			salida.println("<img class=\"figuras\" src=\""+peticion.getContextPath()+"/imgs/Abbye.jpeg\">");
+			salida.println("</td>");
+			salida.println("<td>");
+			salida.println("<h2> x " +id1 +"</h2>");
+			salida.println("</td>");
+			salida.println("</tr>");
+
+			salida.println("<tr>");
+			salida.println("<td>");
+			salida.println("<img class=\"figuras\" src=\""+peticion.getContextPath()+"/imgs/Chimay.jpeg\">");
+			salida.println("</td>");
+			salida.println("<td>");
+			salida.println("<h2> x " +id2 +"</h2>");
+			salida.println("</td>");
+			salida.println("</tr>");
+
+			salida.println("<tr>");
+			salida.println("<td>");
+			salida.println("<img class=\"figuras\" src=\""+peticion.getContextPath()+"/imgs/delirium.jpeg\">");
+			salida.println("</td>");
+			salida.println("<td>");
+			salida.println("<h2> x " +id3 +"</h2>");
+			salida.println("</td>");
+			salida.println("</tr>");
+
+			salida.println("<tr>");
+			salida.println("<td>");
+			salida.println("<h2>TOTAL: "+ total + "&dollar;" + "</h2>");
+			salida.println("</td>");
+			salida.println("</tr>");
+	    
 	    
 	    }catch(ClassNotFoundException | SQLException e){
 	    salida.println(e.toString());
 	    }
 
 	salida.println("</table>");
-
+	salida.println("<a class=\"enlaceDetalles\" href=\"datos\"> Enviar pedido </a>");
 	salida.println("</main>");
 	salida.println("<div class=\"debug\"");
-        salida.println(misesion.toString());
+    salida.println(misesion.toString());
 	salida.println("</div>");
-
 	salida.println("<script src=\""+peticion.getContextPath()+"/js/gestion.js\"></script>");
-	salida.println("</body></html>");        
+	salida.println("</body></html>"); 
+
     }
 }

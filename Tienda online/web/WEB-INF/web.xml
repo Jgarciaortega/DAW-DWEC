@@ -38,6 +38,18 @@
     </servlet-mapping>
 
 
+ <!--Datos-->
+     <servlet>
+         <servlet-name>DatosBancariosS</servlet-name>
+         <servlet-class>DatosBancariosC</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+         <servlet-name>DatosBancariosS</servlet-name>
+         <url-pattern>/datos</url-pattern>
+    </servlet-mapping>
+
+
     <!--API-->
      <servlet>
          <servlet-name>APIGestionS</servlet-name>

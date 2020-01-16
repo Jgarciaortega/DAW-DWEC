@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 
 
-public class ListadoC extends HttpServlet {
+public class DatosBancariosC extends HttpServlet {
 
     public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
         
@@ -16,23 +16,7 @@ public class ListadoC extends HttpServlet {
 	
 	misesion = peticion.getSession(true);
 
-	if(misesion.isNew()==true){
-		lista = new ArrayList<Integer>();
-		misesion.setAttribute("idproductos",lista);		
-		
-	}else{
-
-			try{
-
-				idCerveza = Integer.parseInt(peticion.getParameter("producto"));
-				lista =(ArrayList<Integer>) misesion.getAttribute("idproductos");
-			lista.add(idCerveza);
-			misesion.setAttribute("idproductos",lista);
-
-			}catch(NumberFormatException e){
-
-
-			}
+    int total = misesion.getAttribute('total');
 			
 			
 
