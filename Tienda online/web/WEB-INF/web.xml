@@ -49,6 +49,16 @@
          <url-pattern>/datos</url-pattern>
     </servlet-mapping>
 
+<!-- Confirmacin pedido -->
+       <servlet>
+         <servlet-name>ConfirmacionPedidoS</servlet-name>
+         <servlet-class>ConfirmacionPedidoS</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+         <servlet-name>ConfirmacionPedidoS</servlet-name>
+         <url-pattern>/confirmacion</url-pattern>
+    </servlet-mapping>
 
     <!--API-->
      <servlet>

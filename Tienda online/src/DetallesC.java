@@ -9,6 +9,7 @@ public class DetallesC extends HttpServlet {
     int id2 ;
     int id3 ;
 	int total;
+	int incremento;
 
     public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
         
@@ -19,7 +20,9 @@ public class DetallesC extends HttpServlet {
 
 	id1 = 0;
     id2 = 0;
-    id3 = 0;
+	id3 = 0;
+	total = 0;
+	incremento = 0;
 
 	misesion = peticion.getSession(true);
 	lista =(ArrayList<Integer>) misesion.getAttribute("idproductos");
@@ -61,6 +64,7 @@ public class DetallesC extends HttpServlet {
 		}
 
 		total = (id1 * 3) + (id2 * 4) + (id3 * 2);
+		incremento = id1 + id2 + id3;
 		misesion.setAttribute("total", total);
 			salida.println("<tr>");
 			salida.println("<td>");
@@ -91,10 +95,13 @@ public class DetallesC extends HttpServlet {
 
 			salida.println("<tr>");
 			salida.println("<td>");
+			salida.println("<h2>SUBTOTAL: "+ total + "&dollar;" + "</h2>");
+			salida.println("<h2>ENVIO: 2&dollar;" + "</h2>");
+			salida.println("<h2>INCREMENTO POR PEDIDO: " +incremento +"2&dollar;" + "</h2>");
+			total = total + incremento;
 			salida.println("<h2>TOTAL: "+ total + "&dollar;" + "</h2>");
 			salida.println("</td>");
 			salida.println("</tr>");
-	    
 	    
 	    }catch(ClassNotFoundException | SQLException e){
 	    salida.println(e.toString());

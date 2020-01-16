@@ -39,8 +39,6 @@ public class ListadoC extends HttpServlet {
 
 	}
 
-
-
 	salida.println("<!DOCTYPE html>");  // HTML 5
     salida.println("<html><head>");
     salida.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
