@@ -21,16 +21,9 @@ public class DatosBancariosC extends HttpServlet {
 		salida.println("<title> LISTADO </title></head>");
 		salida.println(
 				"<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Mate+SC\" />");
-		salida.println(
-				"<link rel=\"stylesheet\" href=\"" + peticion.getContextPath() + "/css/style.css\" type=\"text/css\">");
-
-		salida.println("<body>");
-		salida.println("<header>");
-		salida.println("<h1>DATOS CLIENTE</h1>");
-		salida.println("</header");
 		salida.println("<div>");
 
-		salida.println("<form action='/confirmacion'>");
+		salida.println("<form action=http://localhost:8080/gestion/confirmacion method=get>");
 		salida.println("<label for='nombre'>NOMBRE:</label>");
 		salida.println("<input type='text' name='nombre'>");
 		salida.println("<label for='apellidos'>APELLIDOS:</label>");
@@ -46,8 +39,7 @@ public class DatosBancariosC extends HttpServlet {
 		salida.println(misesion.toString());
 		salida.println("</div>");
 
-		// salida.println("<script
-		// src=\""+peticion.getContextPath()+"/js/gestion.js\"></script>");
+
 		salida.println("</body></html>");
 
 	}

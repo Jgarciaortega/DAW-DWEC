@@ -4,20 +4,12 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.*;
 
-public class ConfirmacionPedidoC extends HttpServlet {
+public class GestionVendedorC extends HttpServlet {
 
     public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
         
-	HttpSession misesion;
     PrintWriter salida = respuesta.getWriter();
-	String nombre = peticion.getParameter("nombre");
-
-	misesion=peticion.getSession(true);
-	Integer productos ;
-	Integer total ;
-
-	productos = (Integer) misesion.getAttribute("productos");
-	total = (Integer) misesion.getAttribute("total");
+	
 
 	salida.println("<!DOCTYPE html>");  // HTML 5
     salida.println("<html><head>");
@@ -28,23 +20,46 @@ public class ConfirmacionPedidoC extends HttpServlet {
 	salida.println("<link rel=\"stylesheet\" href=\""+peticion.getContextPath()+"/css/style.css\" type=\"text/css\">");
     salida.println("<body>");
 	salida.println("<header>");
-    salida.println("<h1> GRACIAS POR SU COMPRA </h1>");  // Prints "Hello, world!"
-	salida.println("<a class=\"enlaceDetalles\" href=\"listado\"> Seguir Comprando </a>");
+    salida.println("<h1> GESTION VENDEDOR </h1>");  
 	salida.println("</header");
 	salida.println("</body></html>"); 
 
 
+    salida.println("<table>");
+
 	try{
+
 	    Class.forName("com.mysql.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cervezas", "tomcat", "tomcat");
-	    Statement update;
+        PreparedStatement pst = conn.prepareStatement("Select * from pedidos;");
+	    ResultSet rs = pst.executeQuery();
 
-		update = conn.createStatement();
-		update.executeUpdate("INSERT INTO pedidos VALUES (null,'" +nombre + "'," + productos + "," + total + ");");
+        salida.println("<th>NOMBRE<th>CANTIDAD<th>TOTAL");
+
+        while(rs.next()){
+
+            salida.println("<tr>");
+			salida.println("<td>");
+            salida.println(rs.getString("nombre"));
+			salida.println("</td>");
+            salida.println("<td>");
+            salida.println(rs.getString("cantidad"));
+			salida.println("</td>");
+            salida.println("<td>");
+            salida.println(rs.getString("total"));
+			salida.println("</td>");
+			salida.println("</tr>");
+
+        }
+
 
 	    }catch(ClassNotFoundException | SQLException e){
 	    salida.println(e.toString());
 	    }
 
+    salida.println("</table>");
+    salida.println("</body></html>");
     }
+
+    
 }

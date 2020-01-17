@@ -26,16 +26,14 @@ public class ListadoC extends HttpServlet {
 
 				idCerveza = Integer.parseInt(peticion.getParameter("producto"));
 				lista =(ArrayList<Integer>) misesion.getAttribute("idproductos");
-			lista.add(idCerveza);
-			misesion.setAttribute("idproductos",lista);
+				lista.add(idCerveza);
+				misesion.setAttribute("idproductos",lista);
 
 			}catch(NumberFormatException e){
 
 
 			}
 			
-			
-
 
 	}
 

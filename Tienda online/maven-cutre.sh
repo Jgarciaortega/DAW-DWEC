@@ -34,14 +34,14 @@ $JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/DetallesC.java
 echo " [ Compilando ] : Listado"
 $JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/ListadoC.java
 
-echo " [ Compilando API ] : Gestion "
-$JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/APIGestionC.java
-
-echo " [ Compilando API ] : GestionCuenta "
-$JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/APIGestionCuentaC.java
-
-echo " [ Compilando API ] : GestionCuenta "
+echo " [ Compilando API ] : Datos "
 $JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/DatosBancariosC.java
+
+echo " [ Compilando API ] : Confirmacion "
+$JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/ConfirmacionPedidoC.java
+
+echo " [ Compilando API ] : Vendedor "
+$JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/GestionVendedorC.java
 
 echo " [ Preparando WAR ] : Creamos el directorio "
 mkdir -p web/WEB-INF/classes/

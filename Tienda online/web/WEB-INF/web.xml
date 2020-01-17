@@ -52,7 +52,7 @@
 <!-- Confirmacin pedido -->
        <servlet>
          <servlet-name>ConfirmacionPedidoS</servlet-name>
-         <servlet-class>ConfirmacionPedidoS</servlet-class>
+         <servlet-class>ConfirmacionPedidoC</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -60,27 +60,15 @@
          <url-pattern>/confirmacion</url-pattern>
     </servlet-mapping>
 
-    <!--API-->
-     <servlet>
-         <servlet-name>APIGestionS</servlet-name>
-         <servlet-class>APIGestionC</servlet-class>
+<!-- Gestion vendedor -->
+       <servlet>
+         <servlet-name>GestionVendedorS</servlet-name>
+         <servlet-class>GestionVendedorC</servlet-class>
     </servlet>
 
     <servlet-mapping>
-         <servlet-name>APIGestionS</servlet-name>
-         <url-pattern>/api/gestion</url-pattern>
+         <servlet-name>GestionVendedorS</servlet-name>
+         <url-pattern>/vendedor</url-pattern>
     </servlet-mapping>
-
-
-     <servlet>
-         <servlet-name>APIGestionCuentaS</servlet-name>
-         <servlet-class>APIGestionCuentaC</servlet-class>
-    </servlet>
-    
-   <servlet-mapping>
-         <servlet-name>APIGestionCuentaS</servlet-name>
-         <url-pattern>/api/cuenta</url-pattern>
-    </servlet-mapping>
-
 
 </web-app>

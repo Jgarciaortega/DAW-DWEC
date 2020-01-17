@@ -23,3 +23,9 @@ INSERT INTO unidades VALUES (NULL, "Chimay",4,"Chimay.jpeg");
 INSERT INTO unidades VALUES (NULL, "Delirium",2,"delirium.jpeg");
 
 
+CREATE TABLE pedidos (
+ _idcompra INT NOT NULL AUTO_INCREMENT,
+ nombre VARCHAR(255) NOT NULL,
+ cantidad INT NOT NULL,
+ total INT NOT NULL,
+ PRIMARY KEY (_idcompra));

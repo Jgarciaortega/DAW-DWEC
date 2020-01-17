@@ -13,7 +13,7 @@ public class DetallesC extends HttpServlet {
 
     public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
         
-   HttpSession misesion;
+    HttpSession misesion;
     PrintWriter salida = respuesta.getWriter();
 	int idCerveza;
 	ArrayList<Integer> lista;
@@ -65,7 +65,7 @@ public class DetallesC extends HttpServlet {
 
 		total = (id1 * 3) + (id2 * 4) + (id3 * 2);
 		incremento = id1 + id2 + id3;
-		misesion.setAttribute("total", total);
+		
 			salida.println("<tr>");
 			salida.println("<td>");
 			salida.println("<img class=\"figuras\" src=\""+peticion.getContextPath()+"/imgs/Abbye.jpeg\">");
@@ -102,7 +102,9 @@ public class DetallesC extends HttpServlet {
 			salida.println("<h2>TOTAL: "+ total + "&dollar;" + "</h2>");
 			salida.println("</td>");
 			salida.println("</tr>");
-	    
+
+			misesion.setAttribute("total", total);
+			misesion.setAttribute("productos", incremento);
 	    }catch(ClassNotFoundException | SQLException e){
 	    salida.println(e.toString());
 	    }
