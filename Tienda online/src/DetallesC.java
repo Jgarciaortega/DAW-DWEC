@@ -26,7 +26,7 @@ public class DetallesC extends HttpServlet {
 
 	misesion = peticion.getSession(true);
 	lista =(ArrayList<Integer>) misesion.getAttribute("idproductos");
-	
+	incremento = (int) lista.size();
 
 	salida.println("<!DOCTYPE html>");  // HTML 5
     salida.println("<html><head>");
@@ -63,8 +63,9 @@ public class DetallesC extends HttpServlet {
 			}
 		}
 
+
 		total = (id1 * 3) + (id2 * 4) + (id3 * 2);
-		incremento = id1 + id2 + id3;
+		
 		
 			salida.println("<tr>");
 			salida.println("<td>");
@@ -97,7 +98,7 @@ public class DetallesC extends HttpServlet {
 			salida.println("<td>");
 			salida.println("<h2>SUBTOTAL: "+ total + "&dollar;" + "</h2>");
 			salida.println("<h2>ENVIO: 2&dollar;" + "</h2>");
-			salida.println("<h2>INCREMENTO POR PEDIDO: " +incremento +"2&dollar;" + "</h2>");
+			salida.println("<h2>INCREMENTO POR PEDIDO: " + incremento + "2&dollar;" + "</h2>");
 			total = total + incremento;
 			salida.println("<h2>TOTAL: "+ total + "&dollar;" + "</h2>");
 			salida.println("</td>");

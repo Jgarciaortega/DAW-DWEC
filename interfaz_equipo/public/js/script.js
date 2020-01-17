@@ -1,40 +1,43 @@
 function cargar() {
 
-    elementoOrigen = document.getElementById('portero');
-    elementosDestino = document.getElementsByClassName('jugadorReserva');
-
-    portero.addEventListener('dragstart', comienzaArrastre);
-
-    for(element of elementosDestino){
-
-        element.addEventListener('dragenter',function(e) {
-            e.preventDefault();
-        });
-        element.addEventListener('dragover',function(e) {
-            e.preventDefault();
-        });
-        element.addEventListener('drop',soltado);
-    }
-}
-
-function soltado(e){
-
-    e.preventDefault();
+    let jugadores = document.getElementsByClassName('jugador');
     
-    elementosDestino[0].innerHTML = e.dataTransfer.getData("Text");
+    for (jugador of jugadores) {
+
+        jugador.addEventListener('dragover', allowDrop);
+        jugador.addEventListener('drop', drop);
+        jugador.addEventListener('dragstart', drag);
+        
+    }
 
 }
 
+function allowDrop(ev) {
 
-function comienzaArrastre(e){
-
-    let codigo = "<img src='" + elementoOrigen.getAttribute('src') + "'>";
-
-    e.dataTransfer.setData("Text", codigo);
+    //Permitir que reciba algún elemento
+    ev.preventDefault();
 
 }
 
-let elementoOrigen ;
-let elementosDestino;
+function drag(ev) {
+
+    //Indicamos que valor y tipo de información vamos a arrastrar. En este caso texto e ID del elemento.
+    ev.dataTransfer.setData("text", ev.target.id);
+
+}
+
+function drop(ev) {
+
+    //Evitamos el comportamiento normal del navegador, que sería abrir el elemento en una nueva pestaña.
+    ev.preventDefault();
+
+    //Guardamos el elemento, llamado "text" en una variable.
+    var data = ev.dataTransfer.getData("text");
+
+    //Colgamos el elemeto arrastrado y soltado en el nuevo destino.
+    ev.target.appendChild(document.getElementById(data));
+
+}
+
 
 window.addEventListener("load", cargar);
