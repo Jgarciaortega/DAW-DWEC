@@ -43,6 +43,9 @@ $JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/ConfirmacionPedidoC.java
 echo " [ Compilando API ] : Vendedor "
 $JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/GestionVendedorC.java
 
+echo " [ Compilando API ] : Pedidos Anteriores "
+$JAVA_RUNTIME_FOLDER/bin/javac $JAVA_OPTS src/PedidosAnterioresC.java
+
 echo " [ Preparando WAR ] : Creamos el directorio "
 mkdir -p web/WEB-INF/classes/
 

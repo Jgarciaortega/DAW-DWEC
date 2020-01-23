@@ -4,24 +4,16 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.*;
 
-public class ConfirmacionPedidoC extends HttpServlet {
+public class PedidosAnterioresC extends HttpServlet {
 
     public void doGet(HttpServletRequest peticion, HttpServletResponse respuesta) throws ServletException, IOException {
         
-	HttpSession misesion;
     PrintWriter salida = respuesta.getWriter();
-	String nombre = peticion.getParameter("nombre");
-	Cookie cookie = new Cookie("cliente","");
-	cookie.setValue(nombre);
-	respuesta.addCookie(cookie);
-	misesion=peticion.getSession(true);
-	Integer productos ;
-	Integer total ;
-
-	productos = (Integer) misesion.getAttribute("productos");
-	total = (Integer) misesion.getAttribute("total");
-
-	salida.println("<!DOCTYPE html>");  // HTML 5
+	Cookie[] cookies = peticion.getCookies();
+    Cookie cookie = cookies[0];
+    String nombre = cookie.getValue();
+	
+	salida.println("<!DOCTYPE html>");  
     salida.println("<html><head>");
     salida.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
 	salida.println("<title> DETALLES </title></head>");
@@ -30,23 +22,40 @@ public class ConfirmacionPedidoC extends HttpServlet {
 	salida.println("<link rel=\"stylesheet\" href=\""+peticion.getContextPath()+"/css/style.css\" type=\"text/css\">");
     salida.println("<body>");
 	salida.println("<header>");
-    salida.println("<h1> GRACIAS POR SU COMPRA </h1>");  // Prints "Hello, world!"
+    salida.println("<h1> PEDIDOS </h1>");  // Prints "Hello, world!"
 	salida.println("<a class=\"enlaceDetalles\" href=\"listado\"> Seguir Comprando </a>");
 	salida.println("</header");
-	salida.println("</body></html>"); 
-
-
+	salida.println("<body>");
+    salida.println("<p>" + nombre +"</p>");
+    salida.println("<table>");
 	try{
-	    Class.forName("com.mysql.jdbc.Driver");
+	   Class.forName("com.mysql.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cervezas", "tomcat", "tomcat");
-	    Statement update;
+        PreparedStatement pst = conn.prepareStatement("Select * from unidades where nombre like " + nombre + ";");
+	    ResultSet rs = pst.executeQuery();
+	    
 
-		update = conn.createStatement();
-		update.executeUpdate("INSERT INTO pedidos VALUES (null,'" +nombre + "'," + productos + "," + total + ");");
+        while(rs.next()){
+
+            salida.println("<tr>");
+			salida.println("<td>");
+            salida.println(rs.getString("nombre"));
+			salida.println("</td>");
+            salida.println("<td>");
+            salida.println(rs.getString("cantidad"));
+			salida.println("</td>");
+            salida.println("<td>");
+            salida.println(rs.getString("total"));
+			salida.println("</td>");
+			salida.println("</tr>");
+
+        }
 
 	    }catch(ClassNotFoundException | SQLException e){
 	    salida.println(e.toString());
 	    }
+    salida.println("</table>");
+    salida.println("</body></html>"); 
 
     }
 }

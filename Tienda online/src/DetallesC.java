@@ -51,6 +51,7 @@ public class DetallesC extends HttpServlet {
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cervezas", "tomcat", "tomcat");
         PreparedStatement pst = conn.prepareStatement("Select * from unidades;");
 	    ResultSet rs = pst.executeQuery();
+		
 
 
 		for(Integer id : (ArrayList<Integer>) misesion.getAttribute("idproductos")){
