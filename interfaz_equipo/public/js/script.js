@@ -14,6 +14,7 @@ function cargar() {
 
 function allowDrop(ev) {
 
+    console.log(ev);
     //Permitir que reciba algún elemento
     ev.preventDefault();
 
@@ -34,8 +35,6 @@ function drop(ev) {
 
     //Guardamos el elemento, llamado "text" en una variable.
     let data = ev.dataTransfer.getData("text");
-
-    let padre = document.getElementById(data).parentNode;
 
     //Colgamos el elemeto arrastrado y soltado en el nuevo destino.
     ev.target.appendChild(document.getElementById(data));
