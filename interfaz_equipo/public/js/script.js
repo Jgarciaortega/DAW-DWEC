@@ -48,7 +48,10 @@ function drop(ev) {
     let data = ev.dataTransfer.getData("text");
 
     //Colgamos el elemeto arrastrado y soltado en el nuevo destino.
-    ev.target.appendChild(document.getElementById(data));
+    if(!ev.target.draggable){
+        ev.target.appendChild(document.getElementById(data));
+    }
+    
 
 
 }
