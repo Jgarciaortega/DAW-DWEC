@@ -4,7 +4,7 @@ function cargar() {
     
     for (jugador of jugadores) {
 
-        jugador.addEventListener('dragover', allowDrop);
+        //jugador.addEventListener('dragover', allowDrop);
         jugador.addEventListener('drop', drop);
         jugador.addEventListener('dragstart', drag);
         
@@ -15,7 +15,7 @@ function cargar() {
 function allowDrop(ev) {
 
     //Permitir que reciba algún elemento
-    ev.preventDefault();
+     ev.preventDefault();
 
 }
 
@@ -23,6 +23,16 @@ function drag(ev) {
 
     //Indicamos que valor y tipo de información vamos a arrastrar. En este caso texto e ID del elemento.
     ev.dataTransfer.setData("text", ev.target.id);
+
+    let jugadores = document.getElementsByClassName('jugador');
+
+    for(jugador of jugadores){
+        
+        if(jugador.hasChildNodes){
+
+            jugador.addEventListener('dragover', allowDrop);
+        } 
+    }
 
 }
 
