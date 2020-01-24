@@ -12,12 +12,13 @@ public class ListadoC extends HttpServlet {
         HttpSession misesion;
         PrintWriter salida = respuesta.getWriter();
 		int idCerveza;
-		ArrayList<Integer> lista;
+		ArrayList<Integer> lista = new ArrayList<Integer>();
+		
 	
 	misesion = peticion.getSession(true);
 
 	if(misesion.isNew()==true){
-		lista = new ArrayList<Integer>();
+		
 		misesion.setAttribute("idproductos",lista);		
 		
 	}else{
@@ -28,6 +29,7 @@ public class ListadoC extends HttpServlet {
 				lista =(ArrayList<Integer>) misesion.getAttribute("idproductos");
 				lista.add(idCerveza);
 				misesion.setAttribute("idproductos",lista);
+				
 
 			}catch(NumberFormatException e){
 
@@ -89,14 +91,14 @@ public class ListadoC extends HttpServlet {
 
 	    }
 
-		salida.println("<a class=\"enlaceDetalles\" href=\"detalles\"> Elementos en la Cesta (_) </a>");
+		salida.println("<a class=\"enlaceDetalles\" href=\"detalles\"> Elementos en la Cesta ("+ lista.size() +") </a>");
 	    
 	    }catch(ClassNotFoundException | SQLException e){
 	    salida.println(e.toString());
 	    }
 
 	salida.println("</table>");
-
+	salida.println("<a class=\"enlaceDetalles\" href=\"pedidosAnteriores\"> Visite sus anteriores pedidos </a>");
 	salida.println("</main>");
 
 	salida.println("<div class=\"debug\"");

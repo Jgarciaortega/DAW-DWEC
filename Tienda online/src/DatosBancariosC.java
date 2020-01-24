@@ -28,8 +28,8 @@ public class DatosBancariosC extends HttpServlet {
 		salida.println("<input type='text' name='nombre'>");
 		salida.println("<label for='apellidos'>APELLIDOS:</label>");
 		salida.println("<input type='text' name='apellidos'>");
-		salida.println("<input type='text' name='tarjeta'>");
 		salida.println("<label for='tarjeta'>TARJETA:</label>");
+		salida.println("<input type='text' name='tarjeta'>");
 		salida.println("<input type='submit' value='CONFIRMAR PEDIDO'>");
 		salida.println("</form>");
 

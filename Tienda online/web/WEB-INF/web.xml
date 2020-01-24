@@ -71,4 +71,15 @@
          <url-pattern>/vendedor</url-pattern>
     </servlet-mapping>
 
+<!-- Pedidos anteriores -->
+       <servlet>
+         <servlet-name>PedidosAnterioresS</servlet-name>
+         <servlet-class>PedidosAnterioresC</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+         <servlet-name>PedidosAnterioresS</servlet-name>
+         <url-pattern>/pedidosAnteriores</url-pattern>
+    </servlet-mapping>
+
 </web-app>
