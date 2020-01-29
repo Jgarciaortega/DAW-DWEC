@@ -10,8 +10,9 @@ public class PedidosAnterioresC extends HttpServlet {
         
     PrintWriter salida = respuesta.getWriter();
 	Cookie[] cookies = peticion.getCookies();
-    Cookie cookie = cookies[0];
+    Cookie cookie = cookies[1];
     String nombre = cookie.getValue();
+    
 	
 	salida.println("<!DOCTYPE html>");  
     salida.println("<html><head>");
@@ -26,12 +27,13 @@ public class PedidosAnterioresC extends HttpServlet {
 	salida.println("<a class=\"enlaceDetalles\" href=\"listado\"> Seguir Comprando </a>");
 	salida.println("</header");
 	salida.println("<body>");
-    salida.println("<p>" + nombre +"</p>");
     salida.println("<table>");
+    salida.println("<th> Nombre <th> Cantidad <th> Total");
+
 	try{
 	   Class.forName("com.mysql.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cervezas", "tomcat", "tomcat");
-        PreparedStatement pst = conn.prepareStatement("Select * from unidades where nombre like " + nombre + ";");
+        PreparedStatement pst = conn.prepareStatement("Select * from pedidos where nombre like '" + nombre + "';");
 	    ResultSet rs = pst.executeQuery();
 	    
 

@@ -13,6 +13,7 @@ public class ConfirmacionPedidoC extends HttpServlet {
 	String nombre = peticion.getParameter("nombre");
 	Cookie cookie = new Cookie("cliente","");
 	cookie.setValue(nombre);
+	
 	respuesta.addCookie(cookie);
 	misesion=peticion.getSession(true);
 	Integer productos ;
